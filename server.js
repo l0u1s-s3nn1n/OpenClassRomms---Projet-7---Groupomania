@@ -1,11 +1,18 @@
 const express = require ('express');
+const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/user.routes');
 require('dotenv').config({path: './config/.env'});
 require('./config/db.js');
+const {checkUser} = require('./middleware/auth.middleware.js');
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+// jwt
+app.get('*', checkUser);
 
 // routes
 app.use('/api/user' , userRoutes);
