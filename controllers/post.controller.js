@@ -1,3 +1,5 @@
+const { default: mongoose } = require("mongoose");
+
 const postModel = require("../models/post.model");
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
@@ -115,7 +117,7 @@ module.exports.likePost = async (req, res) => {
   };
   
   module.exports.unlikePost = async (req, res) => {
-    if (!ObjectId.isValid(req.params.id))
+    if (!ObjectID.isValid(req.params.id))
       return res.status(400).send("Id unkown : " + req.params.id);
   
     try {
