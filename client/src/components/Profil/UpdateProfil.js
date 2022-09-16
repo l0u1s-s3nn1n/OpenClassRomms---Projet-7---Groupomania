@@ -49,7 +49,7 @@ const UpdateProfil = () => {
                   defaultValue={userData.bio}
                   onChange={(e) => setBio(e.target.value)}
                 ></textarea>
-                <button onClick={handleUpdate}>Valider modifications</button>
+                <button onClick={handleUpdate}>Valider modifications </button>
               </>
             )}
           </div>

@@ -24,9 +24,9 @@ const UploadImg = () => {
     <label className='modify-image-btn' htmlFor='file'>Changer l'image</label>
     <input type='file' id='file' name='file' accept='.jpg, .jpeg, .png' onChange={(e) => setFile(e.target.files[0])}/>
     <br/>
-    <input type='submit' value='Envoyer' className='validation-image-profil-btn' onChange={(e) => setFile(e.target.files[0])}/>
+    <input type='submit' value='Envoyer' className='validation-image-profil-btn'/>
     </form>
   )
 }
 
-export default UploadImg
+export default UploadImg;
