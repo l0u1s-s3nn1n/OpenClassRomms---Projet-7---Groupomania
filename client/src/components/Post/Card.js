@@ -36,6 +36,7 @@ const Card = ({ post }) => {
           <div className="card-right">
             <div className="card-header">
               <div className="pseudo">
+                
                 <h3>
                   {!isEmpty(usersData[0]) &&
                     usersData.map((user) => {
@@ -45,12 +46,14 @@ const Card = ({ post }) => {
                       }
                     })}
                 </h3>
+                
                 {post.posterId !== userData._id && (
                   <FollowHandler idToFollow={post.posterId} type={"card"} />
                 )}
               </div>
-              <span>{dateParser(post.createdAt)}</span>
+              
               <p>{post.message}</p>
+              
               {post.picture && (
                 <img src={post.picture} alt="card-pic" className="card-pic" />
               )}
@@ -73,6 +76,7 @@ const Card = ({ post }) => {
                 <LikeButton post={post}/>
                 <img src="./img/icons/share.svg" alt="share" />
               </div>
+              <span className="datePost">posté le {dateParser(post.createdAt)}</span>
             </div>
             
           </div>

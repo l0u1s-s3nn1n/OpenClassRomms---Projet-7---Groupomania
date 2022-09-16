@@ -13,7 +13,7 @@ const NavBar = () => {
         <div className="logo">
           <NavLink  to="/">
             <div className="logo">
-              <img src="./img/icon-left-font-small.png" alt="" />
+              <img src="./logo/icon-left-font-monochrome-white" alt="" />
               <h3>Groupomania</h3>
             </div>
           </NavLink>
