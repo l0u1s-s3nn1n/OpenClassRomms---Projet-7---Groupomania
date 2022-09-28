@@ -5,20 +5,23 @@ import FollowHandler from "../Profil/FollowHandler";
 import LikeButton from "./LikeButton";
 import { updatePost } from "../../actions/post.actions";
 import DeleteCard from "./DeleteCard";
+import CardComments from "./CardComments";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState(false);
-  const [textUpdate, setTextUpdate] = useState(null);  const usersData = useSelector((state) => state.usersReducer);
+  const [textUpdate, setTextUpdate] = useState(null);
+  const [showComments, setShowComments] = useState(false);
+  const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
-const updateItem = () => {
-    if(textUpdate){
-        dispatch(updatePost(post._id, textUpdate))
+  const updateItem = () => {
+    if (textUpdate) {
+      dispatch(updatePost(post._id, textUpdate));
     }
     setIsUpdated(false);
- };
+  };
 
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
@@ -47,7 +50,6 @@ const updateItem = () => {
           <div className="card-right">
             <div className="card-header">
               <div className="pseudo">
-                
                 <h3>
                   {!isEmpty(usersData[0]) &&
                     usersData.map((user) => {
@@ -57,25 +59,25 @@ const updateItem = () => {
                       }
                     })}
                 </h3>
-                
+
                 {post.posterId !== userData._id && (
                   <FollowHandler idToFollow={post.posterId} type={"card"} />
                 )}
               </div>
-              
-              {isUpdated === false &&  <p>{post.message}</p>}
+
+              {isUpdated === false && <p>{post.message}</p>}
               {isUpdated && (
                 <div className="update-post">
-                  <textarea 
-                    defaultValue={post.message} 
-                    onChange={(e) =>setTextUpdate(e.target.value)}
-                  /> 
-                    <button className="btn" onClick={updateItem}>
-                      Valider les modifications
-                    </button>
+                  <textarea
+                    defaultValue={post.message}
+                    onChange={(e) => setTextUpdate(e.target.value)}
+                  />
+                  <button className="btn" onClick={updateItem}>
+                    Valider les modifications
+                  </button>
                 </div>
               )}
-              
+
               {post.picture && (
                 <img src={post.picture} alt="card-pic" className="card-pic" />
               )}
@@ -92,23 +94,29 @@ const updateItem = () => {
               )}
               {userData._id === post.posterID && (
                 <div className="button-container">
-                  <div onClick={()=> setIsUpdated(!isUpdated)}>
+                  <div onClick={() => setIsUpdated(!isUpdated)}>
                     <img src="./img/icons/edit.svg" alt="edit" />
                   </div>
-                  <DeleteCard id={post._id}/>
-                  </div>
+                  <DeleteCard id={post._id} />
+                </div>
               )}
               <div className="card-footer">
                 <div className="comment-icon">
-                  <img src="./img/icons/message1.svg" alt="comment" />
+                  <img
+                    onClick={() => setShowComments(!showComments)}
+                    src="./img/icons/message1.svg"
+                    alt="comment"
+                  />
                   <span>{post.comments.length}</span>
                 </div>
-                <LikeButton post={post}/>
+                <LikeButton post={post} />
                 <img src="./img/icons/share.svg" alt="share" />
               </div>
-              <span className="datePost">posté le {dateParser(post.createdAt)}</span>
+              <span className="datePost">
+                posté le {dateParser(post.createdAt)}
+              </span>
             </div>
-            
+            {showComments && <CardComments post={post} />}
           </div>
         </>
       )}
